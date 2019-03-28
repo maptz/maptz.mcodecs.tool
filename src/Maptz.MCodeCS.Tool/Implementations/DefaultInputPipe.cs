@@ -15,12 +15,13 @@ using System.Threading.Tasks;
 namespace Maptz.MCodeCS.Tool
 {
 
+
     public class DefaultInputPipe : IInputPipe
     {
         public PipedInputModel ReceivePipedInput()
         {
             //https://daveaglick.com/posts/capturing-standard-input-in-csharp
-            
+
             string stdin = null;
             if (Console.IsInputRedirected)
             {

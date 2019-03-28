@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Maptz.MCodeCS.Tool
 {
 
-    public delegate Task EngineMethod(string fileContents, string filepath, int cursor);
+    public delegate Task<string> EngineMethod(string fileContents, string filepath, int cursor);
 
 
     public class CLIProgramRunner : ICliProgramRunner
@@ -26,16 +26,18 @@ namespace Maptz.MCodeCS.Tool
         public IServiceProvider ServiceProvider { get; }
         public IExtensionEngine ExtensionEngine { get; }
         public IInputPipe InputPipe { get; }
+        public IStreamService StreamService { get; }
 
 
         /* #endregion Public Properties */
         /* #region Public Constructors */
-        public CLIProgramRunner(IOptions<AppSettings> appSettings, IServiceProvider serviceProvider, IExtensionEngine extensionEngine, IInputPipe inputPipe)
+        public CLIProgramRunner(IOptions<AppSettings> appSettings, IServiceProvider serviceProvider, IExtensionEngine extensionEngine, IInputPipe inputPipe, IStreamService streamService)
         {
             this.AppSettings = appSettings.Value;
             this.ServiceProvider = serviceProvider;
             this.ExtensionEngine = extensionEngine;
             this.InputPipe = inputPipe;
+            this.StreamService = streamService;
         }
         /* #endregion Public Constructors */
 
@@ -94,6 +96,15 @@ namespace Maptz.MCodeCS.Tool
                 cla.Command("express-as-statement", config => WireUpEngineMethod(config, this.ExtensionEngine.ExpressAsStatementAsync));
                 cla.Command("remove-unused-usings", config => WireUpEngineMethod(config, this.ExtensionEngine.RemoveUnusedUsingsAsync));
                 cla.Command("sort", config => WireUpEngineMethod(config, this.ExtensionEngine.SortAsync));
+
+                cla.Command("stream", config =>
+                {
+                    config.OnExecute(() =>
+                    {
+                        this.StreamService.Do();
+                        return 0;
+                    });
+                });
                 /* #region Default */
                 //Just show the help text.
                 cla.OnExecute(() =>

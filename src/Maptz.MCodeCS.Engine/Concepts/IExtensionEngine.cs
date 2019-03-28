@@ -11,16 +11,16 @@ namespace Maptz.MCodeCS.Engine
     public interface IExtensionEngine
     {
         /* #region Public Methods */
-        Task AddTestAsync(string fileContents, string filePath, int cursor);
-        Task ConvertToAsyncAsync(string fileContents, string filePath, int cursor);
-        Task ConvertToProtectedVirtualAsync(string fileContents, string filePath, int cursor);
-        Task CreateSettingsAsync(string fileContents, string filePath, int cursor);
-        Task ExpandPropertyAsync(string fileContents, string filePath, int cursor);
-        Task ExpressAsPropertyAsync(string fileContents, string filePath, int cursor);
-        Task ExpressAsStatementAsync(string fileContents, string filePath, int cursor);
-        Task ExtractClassAsync(string fileContents, string filePath, int cursor);
-        Task RemoveUnusedUsingsAsync(string fileContents, string filePath, int cursor);
-        Task SortAsync(string fileContents, string filepath, int cursor);
+        Task<string> AddTestAsync(string fileContents, string filePath, int cursor);
+        Task<string> ConvertToAsyncAsync(string fileContents, string filePath, int cursor);
+        Task<string> ConvertToProtectedVirtualAsync(string fileContents, string filePath, int cursor);
+        Task<string> CreateSettingsAsync(string fileContents, string filePath, int cursor);
+        Task<string> ExpandPropertyAsync(string fileContents, string filePath, int cursor);
+        Task<string> ExpressAsPropertyAsync(string fileContents, string filePath, int cursor);
+        Task<string> ExpressAsStatementAsync(string fileContents, string filePath, int cursor);
+        Task<string> ExtractClassAsync(string fileContents, string filePath, int cursor);
+        Task<string> RemoveUnusedUsingsAsync(string fileContents, string filePath, int cursor);
+        Task<string> SortAsync(string fileContents, string filepath, int cursor);
         /* #endregion Public Methods */
     }
 }

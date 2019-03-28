@@ -57,6 +57,7 @@ namespace Maptz.MCodeCS.Tool
             services.AddTransient<ICSharpFormatterService, NullCSharpFormatterService>();
             services.AddTransient<ICreateSettingsService, CreateSettingsService>();
             services.AddTransient<IInputPipe, DefaultInputPipe>();
+            services.AddTransient<IStreamService, StreamService>();
             //services.AddLogging(loggingBuilder => loggingBuilder.AddConfiguration(Configuration.GetSection("Logging")).AddConsole().AddDebug());
         }
     }
